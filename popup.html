@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rick Roll Blocker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Rick Roll Blocker</h1>
+
+  <div class="input-group">
+    <input id="linkInput" placeholder="example.com or *.youtube.com or regex:^https://..." />
+    <button id="addBtn">Add</button>
+  </div>
+
+  <div class="actions">
+    <button id="exportBtn">Export</button>
+    <button id="importBtn">Import</button>
+    <input type="file" id="fileInput" hidden />
+  </div>
+
+  <ul id="linkList"></ul>
+
+  <script src="popup.js"></script>
+</body>
+</html>
