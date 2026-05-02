@@ -74,8 +74,21 @@ fileInput.onchange = () => {
 
   reader.onload = () => {
     try {
-      const data = JSON.parse(reader.result);
-      chrome.storage.sync.set({ blockedLinks: data }, loadLinks);
+      const imported = JSON.parse(reader.result);
+
+      if (!Array.isArray(imported)) {
+        alert("JSON precisa ser um array de links");
+        return;
+      }
+
+      chrome.storage.sync.get(["blockedLinks"], (data) => {
+        const current = data.blockedLinks || [];
+
+        const merged = [...new Set([...current, ...imported])];
+
+        chrome.storage.sync.set({ blockedLinks: merged }, loadLinks);
+      });
+
     } catch {
       alert("Invalid JSON");
     }

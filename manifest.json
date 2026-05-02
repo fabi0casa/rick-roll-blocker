@@ -19,5 +19,12 @@
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.tiktok.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
 }

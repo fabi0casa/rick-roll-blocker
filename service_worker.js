@@ -13,13 +13,17 @@ function updateRules() {
   chrome.storage.sync.get(["blockedLinks"], (data) => {
     const links = data.blockedLinks || [];
 
-    const rules = links.map((pattern, index) => {
-      return createRule(pattern, index + 1);
-    });
+    chrome.declarativeNetRequest.getDynamicRules((existingRules) => {
+      const existingIds = existingRules.map(r => r.id);
 
-    chrome.declarativeNetRequest.updateDynamicRules({
-      removeRuleIds: rules.map(r => r.id),
-      addRules: rules
+      const newRules = links.map((pattern, index) => {
+        return createRule(pattern, index + 1);
+      });
+
+      chrome.declarativeNetRequest.updateDynamicRules({
+        removeRuleIds: existingIds,
+        addRules: newRules
+      });
     });
   });
 }
